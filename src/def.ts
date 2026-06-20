@@ -25,5 +25,4 @@ import { ComponentDef } from '@triggerix-ai/component'
  * input.bind('blur', 'input.blur').bind('change', 'input.change')
  * ```
  */
-export abstract class NativeComponentDef extends ComponentDef<HTMLElement> {
-}
+export abstract class NativeComponentDef extends ComponentDef<HTMLElement> {}

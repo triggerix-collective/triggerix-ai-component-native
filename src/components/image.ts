@@ -9,6 +9,7 @@ export class ImageComponent extends NativeComponentDef {
   readonly label = 'Image'
   readonly description = 'A static image element.'
   readonly container = false
+  readonly prompt = `图片（\`src\` / \`alt\`）。`
   readonly props: Record<string, ComponentPropSchema> = {
     src: { type: 'string', description: 'Image source URL', required: true },
     alt: { type: 'string', description: 'Alternative text' },

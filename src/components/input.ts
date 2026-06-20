@@ -11,8 +11,11 @@ const INPUT_TYPES = ['text', 'number', 'password'] as const
 export class InputComponent extends NativeComponentDef {
   readonly type = 'input'
   readonly label = 'Input'
-  readonly description = 'A text/number/password input field. Bound events fire with `{ value }` payload.'
+  readonly description
+    = 'A text/number/password input field. Bound events fire with `{ value }` payload.'
+
   readonly container = false
+  readonly prompt = `单行输入框（文本 / 数字 / 密码）。当前值用 \`$ref:<name>.value\` 读取。`
   readonly props: Record<string, ComponentPropSchema> = {
     placeholder: { type: 'string', description: 'Placeholder text' },
     type: { type: 'string', enum: [...INPUT_TYPES], description: 'Input type', default: 'text' },

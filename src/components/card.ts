@@ -10,6 +10,7 @@ export class CardComponent extends NativeComponentDef {
   readonly label = 'Card'
   readonly description = 'A container element. Can nest other components inside (children).'
   readonly container = true
+  readonly prompt = `带可选标题的容器，把多个组件视觉分组在一起。`
   readonly props: Record<string, ComponentPropSchema> = {
     title: { type: 'string', description: 'Optional card title shown as a heading' }
   }

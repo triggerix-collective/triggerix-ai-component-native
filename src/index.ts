@@ -1,13 +1,4 @@
-import {
-  button,
-  card,
-  checkbox,
-  image,
-  input,
-  label,
-  select,
-  uploadButton
-} from './components'
+import { button, card, checkbox, image, input, label, select, uploadButton } from './components'
 
 export {
   ButtonComponent,
@@ -20,16 +11,7 @@ export {
   UploadButtonComponent
 } from './components'
 
-export {
-  button,
-  card,
-  checkbox,
-  image,
-  input,
-  label,
-  select,
-  uploadButton
-} from './components'
+export { button, card, checkbox, image, input, label, select, uploadButton } from './components'
 
 export { NativeComponentDef } from './def'
 
@@ -38,16 +20,7 @@ export { NativeComponentDef } from './def'
  * (e.g. `button`, `input`) and this array share the same object references,
  * so binding an event on `button` immediately reflects in `components[0]`.
  */
-export const components = [
-  button,
-  input,
-  card,
-  uploadButton,
-  label,
-  image,
-  checkbox,
-  select
-]
+export const components = [button, input, card, uploadButton, label, image, checkbox, select]
 
 export { mountNative, nativeRendererContext } from './renderer'
 export type { MountEmitFn, RendererContext } from './renderer'

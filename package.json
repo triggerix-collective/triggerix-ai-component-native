@@ -13,9 +13,6 @@
   "bugs": {
     "url": "https://github.com/triggerix-collective/triggerix-ai-component-native/issues"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -29,6 +26,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "stub": "unbuild --stub",
     "build": "unbuild",
@@ -39,8 +39,8 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "@triggerix-ai/component": "^0.0.5",
-    "@triggerix/core": "^0.0.10"
+    "@triggerix-ai/component": "^0.0.8",
+    "@triggerix/core": "^0.0.11"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",

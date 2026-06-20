@@ -1,4 +1,10 @@
-import type { AIOutput, ComponentDef, MountEmitFn, RendererContext, Scope } from '@triggerix-ai/component'
+import type {
+  AIOutput,
+  ComponentDef,
+  MountEmitFn,
+  RendererContext,
+  Scope
+} from '@triggerix-ai/component'
 import { mount } from '@triggerix-ai/component'
 
 /**

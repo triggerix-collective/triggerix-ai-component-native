@@ -25,9 +25,7 @@ describe('input', () => {
   })
 
   it('emits { value } payload on bound events', () => {
-    const c = new InputComponent()
-      .bind('blur', 'input.blur')
-      .bind('change', 'input.change')
+    const c = new InputComponent().bind('blur', 'input.blur').bind('change', 'input.change')
     const { calls, emit } = emitCapture()
     const el = c.create({ value: 'foo' }, emit) as HTMLInputElement
 

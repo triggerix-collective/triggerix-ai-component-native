@@ -7,8 +7,11 @@ import { NativeComponentDef } from '../def'
 export class LabelComponent extends NativeComponentDef {
   readonly type = 'label'
   readonly label = 'Label'
-  readonly description = 'A static text label, optionally bound to another input via the `for` attribute.'
+  readonly description
+    = 'A static text label, optionally bound to another input via the `for` attribute.'
+
   readonly container = false
+  readonly prompt = `静态文字标签，**只读**，不触发事件。`
   readonly props: Record<string, ComponentPropSchema> = {
     text: { type: 'string', description: 'Label text', required: true },
     for: { type: 'string', description: 'ID of the associated input element' }

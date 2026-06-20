@@ -9,8 +9,11 @@ import { NativeComponentDef } from '../def'
 export class UploadButtonComponent extends NativeComponentDef {
   readonly type = 'uploadButton'
   readonly label = 'Upload Button'
-  readonly description = 'A button that opens a native file picker. Emits `{ files }` payload on change.'
+  readonly description
+    = 'A button that opens a native file picker. Emits `{ files }` payload on change.'
+
   readonly container = false
+  readonly prompt = `文件上传按钮。点击后弹出系统文件选择器，\`change\` 事件携带 \`{ files, count }\` payload。`
   readonly props: Record<string, ComponentPropSchema> = {
     label: { type: 'string', description: 'Visible button text', required: true },
     accept: { type: 'string', description: 'File types accepted (e.g. "image/*")' },

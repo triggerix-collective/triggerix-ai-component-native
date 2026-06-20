@@ -5,7 +5,12 @@ describe('select', () => {
   it('renders <option> children from props', () => {
     const c = new SelectComponent()
     const el = c.create(
-      { options: [{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }] },
+      {
+        options: [
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' }
+        ]
+      },
       () => {}
     )
     const opts = el.querySelectorAll('option')
@@ -17,7 +22,13 @@ describe('select', () => {
   it('marks the initially selected value', () => {
     const c = new SelectComponent()
     const el = c.create(
-      { options: [{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }], value: 'b' },
+      {
+        options: [
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' }
+        ],
+        value: 'b'
+      },
       () => {}
     )
     expect((el as HTMLSelectElement).value).toBe('b')
@@ -30,10 +41,15 @@ describe('select', () => {
       captured = payload
     }
     const el = c.create(
-      { options: [{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }] },
+      {
+        options: [
+          { value: 'a', label: 'A' },
+          { value: 'b', label: 'B' }
+        ]
+      },
       emit
-    )
-    ;(el as HTMLSelectElement).value = 'b'
+    );
+    (el as HTMLSelectElement).value = 'b'
     el.dispatchEvent(new Event('change', { bubbles: true }))
     expect(captured).toEqual({ value: 'b' })
   })

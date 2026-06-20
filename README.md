@@ -82,22 +82,30 @@ const aiOutput = {
   triggers: [
     {
       id: 'submit',
-      events: [
-        { type: 'button.click', source: 'save' }
-      ],
-      conditions: [
-        { left: { $ref: 'nickname.value' }, operator: 'neq', right: '' }
-      ],
+      events: [{ type: 'button.click', source: 'save' }],
+      conditions: [{ left: { $ref: 'nickname.value' }, operator: 'neq', right: '' }],
       actions: [
-        { type: 'api.request', params: { method: 'POST', url: '/api/nickname', body: { nickname: { $ref: 'nickname.value' } } } }
+        {
+          type: 'api.request',
+          params: {
+            method: 'POST',
+            url: '/api/nickname',
+            body: { nickname: { $ref: 'nickname.value' } }
+          }
+        }
       ]
     }
   ]
 }
 
-const scope = mountNative(aiOutput, document.getElementById('chat')!, components, (eventId, source, payload) => {
-  runtime.emit(eventId, source, payload)
-})
+const scope = mountNative(
+  aiOutput,
+  document.getElementById('chat')!,
+  components,
+  (eventId, source, payload) => {
+    runtime.emit(eventId, source, payload)
+  }
+)
 
 // Later: tear down DOM + listeners
 scope.unmount()
@@ -105,31 +113,31 @@ scope.unmount()
 
 ## Component reference
 
-| Component            | `type`           | Default-bound DOM events         | `bind()` recommended for           |
-| -------------------- | ---------------- | -------------------------------- | ---------------------------------- |
-| `ButtonComponent`    | `'button'`       | —                                | `'click'`                          |
-| `InputComponent`     | `'input'`        | —                                | `'blur'`, `'change'`               |
-| `CardComponent`      | `'card'`         | (container; no events)           | —                                  |
-| `UploadButtonComponent` | `'uploadButton'` | —                              | `'change'`                         |
-| `LabelComponent`     | `'label'`        | (display only)                   | —                                  |
-| `ImageComponent`     | `'image'`        | (display only)                   | —                                  |
-| `CheckboxComponent`  | `'checkbox'`     | —                                | `'change'`                         |
-| `SelectComponent`    | `'select'`       | —                                | `'change'`                         |
+| Component               | `type`           | Default-bound DOM events | `bind()` recommended for |
+| ----------------------- | ---------------- | ------------------------ | ------------------------ |
+| `ButtonComponent`       | `'button'`       | —                        | `'click'`                |
+| `InputComponent`        | `'input'`        | —                        | `'blur'`, `'change'`     |
+| `CardComponent`         | `'card'`         | (container; no events)   | —                        |
+| `UploadButtonComponent` | `'uploadButton'` | —                        | `'change'`               |
+| `LabelComponent`        | `'label'`        | (display only)           | —                        |
+| `ImageComponent`        | `'image'`        | (display only)           | —                        |
+| `CheckboxComponent`     | `'checkbox'`     | —                        | `'change'`               |
+| `SelectComponent`       | `'select'`       | —                        | `'change'`               |
 
 All eight are exported as singletons (`button`, `input`, ...) and as a stable-order array (`components`). The array entries and the named exports share the same object references, so `componentRegistry.use(components)` picks up any `bind()` calls made on the named exports.
 
 ## API surface
 
-| Export                  | Kind        | Description |
-| ----------------------- | ----------- | ----------- |
-| `NativeComponentDef`    | class       | Base class for custom native components (extend and implement `create`) |
-| `ButtonComponent` ... `SelectComponent` | class | Pre-built component implementations |
-| `button` ... `select`   | singleton   | Pre-built component instances (call `.bind()` on these in your setup) |
-| `components`            | array       | All eight singletons in stable order; feed this to `componentRegistry.use(...)` |
-| `mountNative`           | function    | Native DOM mount adapter (thin wrapper over `@triggerix-ai/component/mount`) |
-| `nativeRendererContext` | object      | The `RendererContext<HTMLElement, HTMLElement>` implementation |
-| `RendererContext`       | type        | Generic contract for any renderer |
-| `MountEmitFn`           | type        | `(eventId, source, payload?) => void` callback signature |
+| Export                                  | Kind      | Description                                                                     |
+| --------------------------------------- | --------- | ------------------------------------------------------------------------------- |
+| `NativeComponentDef`                    | class     | Base class for custom native components (extend and implement `create`)         |
+| `ButtonComponent` ... `SelectComponent` | class     | Pre-built component implementations                                             |
+| `button` ... `select`                   | singleton | Pre-built component instances (call `.bind()` on these in your setup)           |
+| `components`                            | array     | All eight singletons in stable order; feed this to `componentRegistry.use(...)` |
+| `mountNative`                           | function  | Native DOM mount adapter (thin wrapper over `@triggerix-ai/component/mount`)    |
+| `nativeRendererContext`                 | object    | The `RendererContext<HTMLElement, HTMLElement>` implementation                  |
+| `RendererContext`                       | type      | Generic contract for any renderer                                               |
+| `MountEmitFn`                           | type      | `(eventId, source, payload?) => void` callback signature                        |
 
 ## `source` semantics
 
@@ -137,8 +145,18 @@ All eight are exported as singletons (`button`, `input`, ...) and as a stable-or
 
 ```ts
 triggers: [
-  { events: [{ type: 'button.click', source: 'save' }], actions: [/* save */] },
-  { events: [{ type: 'button.click', source: 'cancel' }], actions: [/* cancel */] }
+  {
+    events: [{ type: 'button.click', source: 'save' }],
+    actions: [
+      /* save */
+    ]
+  },
+  {
+    events: [{ type: 'button.click', source: 'cancel' }],
+    actions: [
+      /* cancel */
+    ]
+  }
 ]
 ```
 
@@ -159,8 +177,10 @@ class MyToggleComponent extends NativeComponentDef {
   create(props, emit) {
     const el = document.createElement('button')
     el.textContent = String(props.label ?? '')
-    for (const [domEvent, triggerixEventId] of this.eventBindings)
-      el.addEventListener(domEvent, () => emit(triggerixEventId, { on: !el.classList.contains('on') }))
+    for (const [domEvent, triggerixEventId] of this.eventBindings) {
+      el.addEventListener(domEvent, () =>
+        emit(triggerixEventId, { on: !el.classList.contains('on') }))
+    }
     return el
   }
 }

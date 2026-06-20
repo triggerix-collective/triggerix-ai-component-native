@@ -10,6 +10,7 @@ export class CheckboxComponent extends NativeComponentDef {
   readonly label = 'Checkbox'
   readonly description = 'A boolean toggle. Bound events fire with `{ checked }` payload.'
   readonly container = false
+  readonly prompt = `复选框，可勾选/取消。\`change\` 事件携带 \`{ checked }\` payload。`
   readonly props: Record<string, ComponentPropSchema> = {
     label: { type: 'string', description: 'Visible label text' },
     checked: { type: 'boolean', description: 'Initial checked state', default: false },

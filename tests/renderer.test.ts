@@ -46,9 +46,9 @@ describe('mountNative integration', () => {
       }
     )
 
-    const btns = container.querySelectorAll('button')
-    ;(btns[0] as HTMLButtonElement).dispatchEvent(new MouseEvent('click', { bubbles: true }))
-    ;(btns[1] as HTMLButtonElement).dispatchEvent(new MouseEvent('click', { bubbles: true }))
+    const btns = container.querySelectorAll('button');
+    (btns[0] as HTMLButtonElement).dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    (btns[1] as HTMLButtonElement).dispatchEvent(new MouseEvent('click', { bubbles: true }))
 
     expect(emitted).toEqual([
       ['button.click', 'save'],
