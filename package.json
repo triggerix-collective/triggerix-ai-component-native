@@ -36,15 +36,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@triggerix-ai/component": "^0.0.2",
-    "@triggerix/core": "^0.0.8"
+    "@triggerix-ai/component": "^0.0.5",
+    "@triggerix/core": "^0.0.10"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",
-    "@types/node": "^25.9.3",
+    "@types/node": "^26.0.0",
     "eslint": "^10.5.0",
     "esno": "^4.8.0",
-    "jsdom": "^25.0.0",
+    "jsdom": "^29.1.1",
     "typescript": "^6.0.3",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.9"

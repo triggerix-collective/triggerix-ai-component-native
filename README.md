@@ -82,13 +82,12 @@ const aiOutput = {
   triggers: [
     {
       id: 'submit',
-      event: { type: 'button.click', source: 'save' },
-      conditions: {
-        type: 'and',
-        conditions: [
-          { left: { $ref: 'nickname.value' }, operator: 'neq', right: '' }
-        ]
-      },
+      events: [
+        { type: 'button.click', source: 'save' }
+      ],
+      conditions: [
+        { left: { $ref: 'nickname.value' }, operator: 'neq', right: '' }
+      ],
       actions: [
         { type: 'api.request', params: { method: 'POST', url: '/api/nickname', body: { nickname: { $ref: 'nickname.value' } } } }
       ]
@@ -138,14 +137,14 @@ All eight are exported as singletons (`button`, `input`, ...) and as a stable-or
 
 ```ts
 triggers: [
-  { event: { type: 'button.click', source: 'save' }, actions: [/* save */] },
-  { event: { type: 'button.click', source: 'cancel' }, actions: [/* cancel */] }
+  { events: [{ type: 'button.click', source: 'save' }], actions: [/* save */] },
+  { events: [{ type: 'button.click', source: 'cancel' }], actions: [/* cancel */] }
 ]
 ```
 
 `mountNative` closure-captures `instance.name` as `source` and forwards it to your `emit` callback. Pass it to `runtime.emit(eventId, source, payload)` and the runtime filters triggers by exact source match.
 
-A trigger whose `event.source` is `undefined` matches every source (so you can still write a single global `button.click` trigger if you want).
+A trigger whose `event.source` is `undefined` matches every source (so you can still write a single global `button.click` trigger if you want). When multiple events are listed in `events[]`, any one match fires the trigger (OR semantics).
 
 ## Adding custom native components
 
