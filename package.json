@@ -1,0 +1,52 @@
+{
+  "name": "triggerix-ai-component-native",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Native DOM renderer components for Triggerix AI — 8 pre-built unstyled DOM component implementations (button/input/card/uploadButton/label/image/checkbox/select) consumed by @triggerix-ai/component mount",
+  "license": "MIT",
+  "homepage": "https://github.com/triggerix-collective/triggerix-ai-component-native#readme",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:triggerix-collective/triggerix-ai-component-native.git"
+  },
+  "bugs": {
+    "url": "https://github.com/triggerix-collective/triggerix-ai-component-native/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "stub": "unbuild --stub",
+    "build": "unbuild",
+    "lint": "eslint --cache",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@triggerix-ai/component": "^0.0.2",
+    "@triggerix/core": "^0.0.8"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.0.0",
+    "@types/node": "^25.9.3",
+    "eslint": "^10.5.0",
+    "esno": "^4.8.0",
+    "jsdom": "^25.0.0",
+    "typescript": "^6.0.3",
+    "unbuild": "^3.6.1",
+    "vitest": "^4.1.9"
+  }
+}
