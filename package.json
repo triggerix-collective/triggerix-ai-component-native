@@ -2,6 +2,7 @@
   "name": "triggerix-ai-component-native",
   "type": "module",
   "version": "0.0.0",
+  "packageManager": "pnpm@11.8.0",
   "description": "Native DOM renderer components for Triggerix AI — 8 pre-built unstyled DOM component implementations (button/input/card/uploadButton/label/image/checkbox/select) consumed by @triggerix-ai/component mount",
   "license": "MIT",
   "homepage": "https://github.com/triggerix-collective/triggerix-ai-component-native#readme",
@@ -33,7 +34,9 @@
     "build": "unbuild",
     "lint": "eslint --cache",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "@triggerix-ai/component": "^0.0.5",
@@ -42,11 +45,20 @@
   "devDependencies": {
     "@antfu/eslint-config": "^9.0.0",
     "@types/node": "^26.0.0",
+    "bumpp": "^11.1.0",
     "eslint": "^10.5.0",
     "esno": "^4.8.0",
     "jsdom": "^29.1.1",
+    "nano-staged": "^1.0.2",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^6.0.3",
     "unbuild": "^3.6.1",
     "vitest": "^4.1.9"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm nano-staged"
+  },
+  "nano-staged": {
+    "*": "eslint --cache --fix"
   }
 }

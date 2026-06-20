@@ -1,2 +1,12 @@
-onlyBuiltDependencies:
-  - esbuild
+allowBuilds:
+  esbuild: true
+  simple-git-hooks: true
+
+minimumReleaseAgeExclude:
+  - '@triggerix-ai/component'
+  - '@triggerix/core'
+  - '@types/node'
+
+shellEmulator: true
+
+trustPolicy: no-downgrade
