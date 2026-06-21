@@ -23,8 +23,6 @@ export class UploadButtonComponent extends NativeComponentDef {
   create(props: Record<string, unknown>, emit: EmitFn): HTMLElement {
     const wrapper = document.createElement('label')
     wrapper.dataset.componentType = 'uploadButton'
-    wrapper.style.display = 'inline-flex'
-    wrapper.style.cursor = 'pointer'
 
     const button = document.createElement('span')
     button.textContent = String(props.label ?? 'Upload')
@@ -33,7 +31,6 @@ export class UploadButtonComponent extends NativeComponentDef {
 
     const input = document.createElement('input')
     input.type = 'file'
-    input.style.display = 'none'
     if (props.accept != null)
       input.accept = String(props.accept)
     if (props.multiple)

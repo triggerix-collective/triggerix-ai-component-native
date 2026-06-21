@@ -17,13 +17,14 @@ export class SelectComponent extends NativeComponentDef {
   readonly container = false
   readonly prompt = `下拉选择器。**必须** 传 \`options\` 数组（每项 \`{ value, label }\`）。
 **仅在选项 >= 5 个时用 select；2-4 个选项优先用 radio**（更直观）。
-\`change\` 事件携带 \`{ value }\` payload，引用当前选中值用 \`$ref:<name>.value\`。
-option 的 value 应与目标 action 的 enum 一致（如 set_gender 接受 male/female/other）。`
+- **value**：初始选中值。**必须** 用 "$ref:user.<field>" 引用当前状态；value 必须与某个 options[i].value 相等。
+- option 的 value 应与目标 action 接受的 enum 一致；不确定合法 value/label 列表时**先调** \`get_options("<field>")\`。
+\`change\` 事件携带 \`{ value }\` payload，引用当前选中值用 \`$ref:<name>.value\`。`
   readonly props: Record<string, ComponentPropSchema> = {
     options: {
       type: 'array',
       description:
-        '选项数组，每项 { value, label }。例: [{ value: "male", label: "男" }, { value: "female", label: "女" }]',
+        '选项数组，每项 { value, label }。value 是底层取值，label 是显示文字。合法 value/label 列表可通过 get_options("<field>") 拿到。',
       required: true
     },
     value: {

@@ -15,7 +15,9 @@ export class InputComponent extends NativeComponentDef {
     = 'A text/number/password input field. Bound events fire with `{ value }` payload.'
 
   readonly container = false
-  readonly prompt = `单行输入框（文本 / 数字 / 密码）。当前值用 \`$ref:<name>.value\` 读取。`
+  readonly prompt = `单行输入框（文本 / 数字 / 密码）。
+- **value**：初始值。**必须** 用 "$ref:user.<field>" 引用当前状态，否则用户看到的是空框。
+- 当前运行时值用 \`$ref:<name>.value\` 读取（trigger actionParams 里用）。`
   readonly props: Record<string, ComponentPropSchema> = {
     placeholder: { type: 'string', description: 'Placeholder text' },
     type: { type: 'string', enum: [...INPUT_TYPES], description: 'Input type', default: 'text' },

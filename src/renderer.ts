@@ -5,6 +5,7 @@ import type {
   RendererContext,
   Scope
 } from '@triggerix-ai/component'
+import type { RefResolver } from '@triggerix/runtime'
 import { mount } from '@triggerix-ai/component'
 
 /**
@@ -24,14 +25,19 @@ export const nativeRendererContext: RendererContext<HTMLElement, HTMLElement> = 
  * The application provides `emit`, which receives `(eventId, source, payload)`
  * — `source` is the semantic component instance name from `output.components[i].name`.
  * Most applications forward these arguments directly to `triggerixRuntime.emit(type, source, payload)`.
+ *
+ * `refResolver` is forwarded to the runtime's `$ref` resolver for component
+ * props. Strings like `"$ref:user.nickname"` inside `props` are normalised to
+ * the runtime's `{ $ref: '...' }` object form and then resolved.
  */
 export function mountNative(
   output: AIOutput,
   container: HTMLElement,
   components: ReadonlyArray<ComponentDef<HTMLElement>>,
-  emit: MountEmitFn
+  emit: MountEmitFn,
+  refResolver?: RefResolver
 ): Scope {
-  return mount(output, container, components, emit, nativeRendererContext)
+  return mount(output, container, components, emit, nativeRendererContext, refResolver)
 }
 
 // Re-export mount-level types so callers can import them from this package.

@@ -6,7 +6,10 @@ minimumReleaseAgeExclude:
   - '@triggerix-ai/component'
   - '@triggerix/core'
   - '@types/node'
+  - '@triggerix/runtime'
 
 shellEmulator: true
 
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  - nanoid

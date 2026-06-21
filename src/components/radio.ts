@@ -15,13 +15,23 @@ export class RadioComponent extends NativeComponentDef {
   readonly description = '一组单选按钮（带 options 数组），点击选项时 emit 当前 value。'
   readonly container = false
   readonly prompt = `一组互斥单选按钮（2-4 个选项时优先用 radio，比 select 更直观）。
-**必须** 传 \`options\` 字符串数组（每项同时作为 value 和 label 文本）。
-\`change\` 事件携带 \`{ value }\` payload，引用当前选中值用 \`$ref:<name>.value\`。
-**option 值应与目标 action 的 enum 一致**（例：set_gender 接受 male/female/other，所以 options 写 ["male", "female", "other"]）。`
+**必须** 传 \`options\` 数组，每项是 \`{ value, label }\` 对象：
+\`\`\`
+options: [
+  { value: "a", label: "选项 A" },
+  { value: "b", label: "选项 B" }
+]
+\`\`\`
+- \`value\`: 初始选中值（**必须** 用 "$ref:user.<field>" 引用当前状态，否则用户看到的会是空白）。value 必须与某个 options[i].value 相等。
+- 合法 value/label 列表通过 \`get_options("<field>")\` 拿到
+- \`label\`: 用户看到的文字（中文/任意文案）
+- 向后兼容：纯字符串 \`["a", "b"]\` 也支持（同时作 value 和 label）
+
+\`change\` 事件携带 \`{ value }\` payload，引用当前选中值用 \`$ref:<name>.value\`。`
   readonly props: Record<string, ComponentPropSchema> = {
     options: {
       type: 'array',
-      description: '选项字符串数组（如 ["male", "female"]）。字符串同时作为 value 和 label 文本。',
+      description: '选项数组。每项是 { value, label } 对象（value 是底层值，label 是显示文字），或纯字符串（同时作 value 和 label）。',
       required: true
     },
     value: { type: 'string', description: '初始选中值（必须与某个 options[i] 相等）' },
@@ -32,33 +42,43 @@ export class RadioComponent extends NativeComponentDef {
   create(props: Record<string, unknown>, emit: EmitFn): HTMLElement {
     const group = document.createElement('div')
     group.dataset.componentType = 'radio'
-    group.style.display = 'inline-flex'
-    group.style.flexDirection = 'column'
-    group.style.gap = '0.4em'
 
-    const options = (Array.isArray(props.options) ? props.options : []) as string[]
+    const rawOptions = (Array.isArray(props.options) ? props.options : []) as unknown[]
     const currentValue = typeof props.value === 'string' ? props.value : undefined
     const groupName = typeof props.name === 'string' ? props.name : 'radio'
     const disabled = props.disabled === true
 
-    for (const opt of options) {
-      const label = document.createElement('label')
-      label.style.display = 'inline-flex'
-      label.style.alignItems = 'center'
-      label.style.gap = '0.4em'
+    // 归一化：string → { value, label }（向后兼容）；{ value, label } 对象直接用
+    const normalised = rawOptions
+      .map((opt): { value: string, label: string } | null => {
+        if (typeof opt === 'string')
+          return { value: opt, label: opt }
+        if (opt && typeof opt === 'object') {
+          const o = opt as Record<string, unknown>
+          const value = o.value != null ? String(o.value) : ''
+          if (!value)
+            return null
+          const label = o.label != null ? String(o.label) : value
+          return { value, label }
+        }
+        return null
+      })
+      .filter((x): x is { value: string, label: string } => x !== null)
+
+    for (const { value, label } of normalised) {
+      const inputLabel = document.createElement('label')
 
       const input = document.createElement('input')
       input.type = 'radio'
       input.name = groupName
-      input.value = opt
-      if (opt === currentValue)
+      input.value = value
+      input.disabled = disabled
+      if (value === currentValue)
         input.checked = true
-      if (disabled)
-        input.disabled = true
 
-      label.appendChild(input)
-      label.appendChild(document.createTextNode(opt))
-      group.appendChild(label)
+      inputLabel.appendChild(input)
+      inputLabel.appendChild(document.createTextNode(label))
+      group.appendChild(inputLabel)
     }
 
     for (const [domEvent, triggerixEventId] of this.eventBindings) {
