@@ -7,6 +7,7 @@ import {
   image,
   input,
   label,
+  radio,
   select,
   uploadButton
 } from '../src/components'
@@ -20,7 +21,8 @@ describe('reference consistency', () => {
     expect(label).toBe(components[4])
     expect(image).toBe(components[5])
     expect(checkbox).toBe(components[6])
-    expect(select).toBe(components[7])
+    expect(radio).toBe(components[7])
+    expect(select).toBe(components[8])
   })
 
   it('reflects bind() changes on the array entry', () => {
