@@ -1,7 +1,7 @@
 {
   "name": "triggerix-ai-component-native",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "packageManager": "pnpm@11.8.0",
   "description": "Native DOM component implementations for @triggerix-ai/component",
   "license": "MIT",
