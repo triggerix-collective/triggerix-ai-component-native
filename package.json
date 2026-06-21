@@ -1,7 +1,7 @@
 {
   "name": "triggerix-ai-component-native",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "packageManager": "pnpm@11.8.0",
   "description": "Native DOM renderer components for Triggerix AI — 8 pre-built unstyled DOM component implementations (button/input/card/uploadButton/label/image/checkbox/select) consumed by @triggerix-ai/component mount",
   "license": "MIT",
